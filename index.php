@@ -62,10 +62,11 @@ $breadcrumbs = array_filter( $breadcrumbs );
         }
         a:hover {
             color: rgb(56, 151, 237);
+            text-decoration: underline;
         }
         .body {
-           display: block;
-           margin: 30px;
+            display: block;
+            margin: 30px;
         }
         .files {
             margin: 0px -5px;
@@ -81,7 +82,7 @@ $breadcrumbs = array_filter( $breadcrumbs );
             content: " "; display: block;
         }
         .files .file {
-           padding: 5px 5px;
+            padding: 5px 5px;
         }
         .col {
             width: 50%;
@@ -162,6 +163,9 @@ $breadcrumbs = array_filter( $breadcrumbs );
             line-height: 30px;
             margin: 0px 10px;
         }
+        .breadcrumbs a {
+            color: #4b9ac4;
+        }
     </style>
 </head>
 <body>
@@ -173,7 +177,7 @@ $breadcrumbs = array_filter( $breadcrumbs );
 </div>
 <div class="body">
     <h2 class="current-dir"><?php echo basename( $scan_dir ); ?>
-    <small class="breadcrumbs"><?php echo join('<span class="sep">/</span>', $breadcrumbs ); ?></small>
+        <small class="breadcrumbs"><?php echo dirname( $dir ); ?>/<?php echo join('<span class="sep">/</span>', $breadcrumbs ); ?></small>
     </h2>
     <?php if ( is_file( $view_file ) ) { ?>
         <h3>Viewing file: <span><?php echo $view_file; ?></span></h3>
@@ -187,7 +191,7 @@ $breadcrumbs = array_filter( $breadcrumbs );
 
         foreach ( $files as $file ) {
             if ( $file =='.' ||  $file =='..' ) {
-                    continue;
+                continue;
             }
 
             if ( $folder !='' ){
@@ -197,7 +201,7 @@ $breadcrumbs = array_filter( $breadcrumbs );
             }
 
             if ( is_dir( $test_dir ) ) {
-                $cols['folders'][] =  '<div class="file folder"><a href="'.$root_url.'/?folder='.$test_dir.'"><span class="name">'.$file.'<span></a></div>';
+                $cols['folders'][] =  '<div class="file folder"><a class="view-code" href="'.$root_url.'/'.$test_dir.'">View</a><a href="'.$root_url.'/?folder='.$test_dir.'"><span class="name">'.$file.'<span></a></div>';
             } else {
 
                 $cols['files'][] =  '<div class="file '.get_ext( $file ).'"><a class="view-code" href="'.$root_url.'/?folder='.$folder.'&file='.$folder.'/'.$file.'">Code</a><a href="'.$root_url.'/'.$folder.'/'.$file.'"><span class="name">'.$file.'<span></a></div>';
